@@ -1,10 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using PaymentContext.Shared.Entities;
 
 namespace PaymentContext.Domain.Entities
 {
-    public class Subscription
+    public class Subscription : Entity
     {
         private readonly IList<Payment> _payments;
         public Subscription(DateTime? expireDate = null)
@@ -24,7 +25,8 @@ namespace PaymentContext.Domain.Entities
 
         public void AddPayment(Payment payment)
         {
-            _payments.Add(payment);
+            if(Valid)
+                _payments.Add(payment);
         }
         public void Inactivate()
         {
